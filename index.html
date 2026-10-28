@@ -1,0 +1,586 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Windows Server e Linux</title>
+
+<style>
+:root {
+    --gold: #d4af37;
+    --gold-light: #f4d675;
+    --dark: #111111;
+    --panel: #1b1b1b;
+    --panel2: #222222;
+    --text: #eeeeee;
+    --muted: #b7b7b7;
+    --border: #705b1d;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(ellipse at top, #342b12 0%, #17150f 35%, #0d0d0d 75%);
+    color: var(--text);
+    line-height: 1.8;
+    padding: 30px 18px 100px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    padding: 38px 25px;
+    border: 1px solid var(--gold);
+    border-top: 5px solid var(--gold);
+    background: linear-gradient(145deg, #28220f, #171717);
+    border-radius: 12px;
+    margin-bottom: 28px;
+    box-shadow: 0 10px 35px #0008;
+}
+
+.eyebrow {
+    color: var(--gold-light);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+header h1 {
+    color: var(--gold-light);
+    font-size: clamp(26px, 5vw, 43px);
+    line-height: 1.25;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+header p {
+    max-width: 760px;
+    margin: auto;
+    color: #d4d4d4;
+}
+
+.badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    padding: 6px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+.section {
+    background: linear-gradient(145deg, #202020, #171717);
+    border: 1px solid #393328;
+    border-radius: 10px;
+    padding: 27px;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 18px #0004;
+}
+
+.section h2 {
+    color: var(--gold-light);
+    font-size: 21px;
+    margin-bottom: 17px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.section h3 {
+    color: var(--gold);
+    font-size: 17px;
+    margin: 22px 0 10px;
+}
+
+p {
+    margin-bottom: 14px;
+    text-align: justify;
+}
+
+strong {
+    color: #f2d77f;
+}
+
+.scenario {
+    border-left: 4px solid var(--gold);
+    background: #272315;
+    padding: 22px;
+    border-radius: 0 8px 8px 0;
+    margin: 18px 0;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.data-card {
+    background: #242424;
+    border: 1px solid #5b4a20;
+    border-radius: 8px;
+    padding: 18px;
+}
+
+.data-card .number {
+    font-size: 26px;
+    font-weight: bold;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.data-card p {
+    color: #c8c8c8;
+    font-size: 14px;
+    margin: 0;
+    text-align: left;
+}
+
+ul {
+    padding-left: 24px;
+    margin: 12px 0 18px;
+}
+
+li {
+    padding-left: 4px;
+    margin-bottom: 10px;
+}
+
+li::marker {
+    color: var(--gold);
+}
+
+.question {
+    border: 1px solid var(--gold);
+    background: linear-gradient(135deg, #29230f, #1b1b1b);
+    border-radius: 10px;
+    padding: 27px;
+}
+
+.question-label {
+    display: inline-block;
+    background: var(--gold);
+    color: #17130a;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.question h2 {
+    color: var(--gold-light);
+    margin-bottom: 18px;
+    font-size: 23px;
+}
+
+.question p {
+    text-align: justify;
+}
+
+.warning {
+    border: 1px solid #68531b;
+    background: #211d12;
+    border-radius: 8px;
+    padding: 18px;
+    color: #d7d0b7;
+    font-size: 14px;
+    margin-top: 18px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    text-align: center;
+    background: #090909;
+    border-top: 2px solid var(--gold);
+    color: var(--gold-light);
+    padding: 13px 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 13px;
+    box-shadow: 0 -5px 20px #0008;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 15px 10px 85px;
+    }
+
+    header, .section, .question {
+        padding: 20px 16px;
+    }
+
+    .section h2 {
+        font-size: 19px;
+    }
+
+    .question h2 {
+        font-size: 20px;
+    }
+
+    footer {
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+}
+
+@media print {
+    body {
+        background: #fff;
+        color: #000;
+    }
+    body::after {
+        content: "IMPRESSÃO NÃO DISPONÍVEL";
+        display: block;
+        position: fixed;
+        inset: 40% 0 auto;
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        color: #000;
+    }
+    .container {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+    <div class="eyebrow"> • Sistemas Operacionais</div>
+    <h1>Windows Server e Linux</h1>
+    <p>
+        A atividade não permite que o aluno copie e cole em IA's então nem perca tempo 😉...
+    </p>
+    <div class="badge">Atividade de pesquisa e análise crítica</div>
+</header>
+
+<section class="section">
+    <h2>01 — Contextualização profissional</h2>
+
+    <p>
+        A empresa fictícia <strong>InovaTech Soluções Corporativas</strong>
+        está ampliando suas operações e precisa reformular completamente
+        sua infraestrutura de tecnologia da informação. Atualmente,
+        os funcionários utilizam computadores conectados a uma rede
+        local, compartilham arquivos sem controle centralizado e acessam
+        aplicações internas instaladas em equipamentos que não foram
+        projetados para operar continuamente como servidores.
+    </p>
+
+    <p>
+        O crescimento da organização aumentou a quantidade de usuários,
+        o volume de informações armazenadas e a dependência dos sistemas
+        digitais. Falhas recentes provocaram indisponibilidade de arquivos,
+        dificuldades no gerenciamento de permissões, interrupções de
+        serviços e riscos relacionados ao acesso indevido a informações
+        corporativas.
+    </p>
+
+    <p>
+        A direção determinou que a nova infraestrutura deverá oferecer
+        gerenciamento centralizado, autenticação segura, compartilhamento
+        controlado de arquivos, hospedagem de aplicações, resolução de
+        nomes na rede, distribuição automática de configurações IP,
+        monitoramento, cópias de segurança e mecanismos de recuperação
+        após incidentes.
+    </p>
+
+    <div class="scenario">
+        <p>
+            <strong>Desafio profissional:</strong> você foi designado
+            para atuar como analista responsável pelo planejamento
+            dos servidores. Sua missão é investigar tecnicamente o
+            funcionamento do Windows Server e das distribuições Linux
+            utilizadas em servidores, avaliar suas possibilidades de
+            implantação e elaborar uma recomendação fundamentada para
+            a organização.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <h2>02 — Características do ambiente corporativo</h2>
+
+    <div class="data-grid">
+        <div class="data-card">
+            <span class="number">120</span>
+            <p>Usuários que precisarão acessar recursos e serviços de rede.</p>
+        </div>
+
+        <div class="data-card">
+            <span class="number">24/7</span>
+            <p>Necessidade de disponibilidade dos serviços considerados críticos.</p>
+        </div>
+
+        <div class="data-card">
+            <span class="number">3</span>
+            <p>Setores principais: administrativo, financeiro e desenvolvimento.</p>
+        </div>
+
+        <div class="data-card">
+            <span class="number">2 SO</span>
+            <p>Plataformas que devem ser pesquisadas: Windows Server e Linux.</p>
+        </div>
+    </div>
+
+    <h3>Problemas identificados</h3>
+
+    <ul>
+        <li>
+            Não existe uma política uniforme de criação, bloqueio e
+            remoção de contas de usuários.
+        </li>
+        <li>
+            Os arquivos financeiros e administrativos não possuem
+            segregação de acesso suficientemente controlada.
+        </li>
+        <li>
+            As aplicações internas dependem de serviços cuja
+            configuração e manutenção não estão documentadas.
+        </li>
+        <li>
+            A empresa não possui um procedimento validado para
+            restaurar dados e serviços após falhas de hardware,
+            ataques ou erros operacionais.
+        </li>
+        <li>
+            A equipe de TI precisa avaliar custos de licenciamento,
+            capacitação, manutenção, compatibilidade e expansão
+            da infraestrutura.
+        </li>
+    </ul>
+</section>
+
+<section class="section">
+    <h2>03 — Investigação técnica obrigatória</h2>
+
+    <p>
+        A pesquisa deverá demonstrar que um sistema operacional de
+        servidor não se limita a executar programas. Ele administra
+        recursos computacionais, coordena processos, controla acessos,
+        disponibiliza serviços e estabelece mecanismos para que
+        diferentes dispositivos e usuários compartilhem recursos
+        de maneira organizada.
+    </p>
+
+    <h3>Windows Server</h3>
+
+    <p>
+        Investigue a arquitetura e as funções do Windows Server,
+        considerando suas versões e os recursos disponíveis em cada
+        edição. Pesquise o papel dos serviços de diretório, o Active
+        Directory Domain Services (AD DS), o DNS, o DHCP, os
+        compartilhamentos SMB, as permissões NTFS, as Políticas de
+        Grupo (GPO), o gerenciamento de usuários e computadores,
+        o acesso remoto e os recursos de virtualização do Hyper-V.
+        Explique quais funcionalidades dependem de funções, edições,
+        licenças ou configurações específicas.
+    </p>
+
+    <h3>Linux para servidores</h3>
+
+    <p>
+        Investigue distribuições como Ubuntu Server, Debian,
+        Rocky Linux e Red Hat Enterprise Linux. Pesquise o papel
+        do kernel, dos serviços e processos em segundo plano,
+        do systemd, dos usuários e grupos, das permissões de arquivos,
+        do SSH, do DNS, do DHCP, do Samba, do NFS, dos servidores web
+        e das ferramentas de administração e monitoramento.
+        Verifique também como atualizações, registros de eventos,
+        firewall e mecanismos de controle de acesso contribuem
+        para a segurança e a estabilidade do servidor.
+    </p>
+
+    <h3>Funcionamento e integração dos serviços</h3>
+
+    <p>
+        A investigação deve esclarecer como os serviços se relacionam.
+        Por exemplo, a resolução de nomes pelo DNS, a atribuição de
+        endereços IP pelo DHCP, a autenticação de usuários, a autorização
+        para acessar pastas e a comunicação entre cliente e servidor
+        são funções diferentes, embora possam depender umas das outras.
+        Analise como essas funções podem ser distribuídas entre
+        máquinas físicas ou virtuais e como sistemas Windows e Linux
+        podem coexistir na mesma rede.
+    </p>
+</section>
+
+<section class="section">
+    <h2>04 — Requisitos para a tomada de decisão</h2>
+
+    <p>
+        A solução proposta deverá ser avaliada considerando todos
+        os requisitos a seguir, e não somente a facilidade de
+        instalação ou a preferência pessoal por determinado sistema.
+    </p>
+
+    <ul>
+        <li>Controle de identidade, autenticação e autorização.</li>
+        <li>Separação de permissões entre setores e usuários.</li>
+        <li>Disponibilização e integração de serviços de rede.</li>
+        <li>Segurança, atualizações e redução da superfície de ataque.</li>
+        <li>Disponibilidade, redundância e recuperação de desastres.</li>
+        <li>Monitoramento, registros de eventos e diagnóstico de falhas.</li>
+        <li>Compatibilidade com aplicações e equipamentos existentes.</li>
+        <li>Custos de aquisição, licenciamento, suporte e treinamento.</li>
+        <li>Escalabilidade, virtualização e facilidade de manutenção.</li>
+        <li>Documentação, governança e continuidade operacional.</li>
+    </ul>
+
+    <div class="warning">
+        <strong>Orientação de pesquisa:</strong> consulte documentação
+        oficial da Microsoft e das distribuições Linux investigadas.
+        Diferencie características nativas do sistema, serviços
+        instaláveis, ferramentas de terceiros e funcionalidades
+        condicionadas à versão ou ao licenciamento. Não considere
+        automaticamente que uma plataforma é mais segura, econômica
+        ou eficiente sem apresentar critérios e evidências.
+    </div>
+</section>
+
+<section class="section question">
+    <div class="question-label">QUESTÃO ÚNICA • ANÁLISE INTEGRADA</div>
+
+    <h2>05 — Parecer técnico de implantação de servidores</h2>
+
+    <p>
+        Considerando o cenário da InovaTech Soluções Corporativas,
+        realize uma pesquisa técnica aprofundada sobre o Windows Server
+        e o Linux e elabore um parecer profissional fundamentado que
+        apresente uma proposta de infraestrutura capaz de atender às
+        necessidades da empresa. Em sua análise, explique como cada
+        sistema operacional funciona na condição de servidor, descreva
+        o papel do kernel, dos serviços, dos processos, do gerenciamento
+        de recursos, dos usuários e das permissões, e demonstre como
+        os principais serviços de rede são instalados, configurados,
+        administrados e integrados ao ambiente corporativo.
+    </p>
+
+    <p>
+        Compare criticamente as duas plataformas quanto ao gerenciamento
+        centralizado de identidades, à autenticação e autorização,
+        ao compartilhamento de arquivos, ao DNS, ao DHCP, à hospedagem
+        de aplicações, à administração remota, à segurança, às
+        atualizações, ao monitoramento, à virtualização, à escalabilidade,
+        aos custos e à recuperação de falhas. Com base nessa comparação,
+        defina quais serviços seriam mais adequados para cada plataforma,
+        justifique se a empresa deve adotar Windows Server, Linux ou
+        uma arquitetura híbrida e explique como os serviços escolhidos
+        poderão se comunicar e operar de forma integrada.
+    </p>
+
+    <p>
+        Desenvolva sua recomendação considerando a existência de
+        120 usuários, a necessidade de atendimento contínuo dos serviços
+        críticos e a separação dos dados administrativos, financeiros
+        e de desenvolvimento. Apresente uma estratégia coerente para
+        organização dos servidores, segmentação de acessos, políticas
+        de segurança, atualização, cópias de segurança, redundância,
+        monitoramento e recuperação de desastres. Discuta ainda os
+        riscos técnicos e operacionais da proposta, as dependências
+        entre os serviços, os custos diretos e indiretos e os critérios
+        que seriam utilizados para verificar se a solução realmente
+        atende aos requisitos definidos pela empresa.
+    </p>
+
+    <p>
+        <strong>
+            A resposta deverá constituir um único parecer técnico
+            integrado, com argumentos sustentados por pesquisa,
+            terminologia profissional e referências confiáveis.
+            Não será suficiente apenas enumerar diferenças entre
+            os sistemas ou declarar que um deles é superior:
+            será necessário demonstrar o funcionamento dos recursos,
+            relacionar as tecnologias às necessidades apresentadas
+            e justificar tecnicamente as decisões de implantação.
+        </strong>
+    </p>
+</section>
+
+<section class="section">
+    <h2>Critério de análise</h2>
+
+    <p>
+        O estudo será avaliado pela profundidade da pesquisa, precisão
+        técnica, capacidade de comparação, coerência da arquitetura
+        proposta, análise de segurança e continuidade operacional,
+        justificativa das decisões e qualidade das fontes consultadas.
+    </p>
+
+    <p>
+        A atividade apresenta um cenário de referência. As soluções
+        devem ser justificadas com base nas necessidades da empresa
+        e nas funcionalidades efetivamente disponíveis nas versões
+        pesquisadas.
+    </p>
+</section>
+
+</div>
+
+<footer>
+    JÉFFERSON AZEVEDO RECURSOS DIDATICOS
+</footer>
+
+<script>
+(function () {
+    "use strict";
+
+    // Bloqueios preventivos contra cópia e seleção do enunciado.
+    document.addEventListener("contextmenu", function (event) {
+        event.preventDefault();
+    });
+
+    ["copy", "cut", "dragstart", "selectstart"].forEach(function (type) {
+        document.addEventListener(type, function (event) {
+            event.preventDefault();
+        });
+    });
+
+    document.addEventListener("keydown", function (event) {
+        const key = event.key.toLowerCase();
+        const command = event.ctrlKey || event.metaKey;
+
+        if (
+            (command && ["c", "x", "a", "u", "s", "p"].includes(key)) ||
+            key === "f12" ||
+            (command && event.shiftKey && ["i", "j", "c"].includes(key))
+        ) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    }, true);
+})();
+</script>
+
+</body>
+</html>
